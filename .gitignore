@@ -1,0 +1,8 @@
+node_modules
+dist
+.vscode
+key
+key/private_key.pem
+key/public_key.pem
+.docker
+.env
