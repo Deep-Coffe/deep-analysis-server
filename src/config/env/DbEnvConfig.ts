@@ -1,3 +1,4 @@
+import EnvHelper from '@application/helpers/EnvHelper';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -8,6 +9,6 @@ export const DbEnvConfig = {
     username: process.env.DB_USER ?? "postgres",
     password: process.env.DB_PASSWORD ?? "docker",
     database: process.env.DB_DATABASE ?? "local",
-    synchronize: Boolean(process.env.SYNCHRONIZE ?? false),
-    logging: Boolean(process.env.LOGGING ?? false),
+    synchronize: EnvHelper.getBoolean(process.env.SYNCHRONIZE) ?? true,
+    logging: EnvHelper.getBoolean(process.env.LOGGING) ?? false,
 }

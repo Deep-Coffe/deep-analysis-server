@@ -26,7 +26,7 @@ abstract class RouterDomain<V = undefined> implements IHandleDomain<V> {
 
         Logger.info(`Configuring domain: ${this.prefix}`);
         this.routerConfig.forEach(router => {
-            Logger.info(`Configuring path: ${router.path}`);
+            Logger.info(`Configuring path: [${router.method.toUpperCase()}] ${router.path}`);
 
             this._router[router.method](
                 router.path,

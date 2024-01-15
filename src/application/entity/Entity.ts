@@ -1,12 +1,19 @@
+import { DateMetadata } from "./DateMetadata";
 import Guid from "./Guid";
+
+
 
 class Entity<T> {
     public id: Guid;
     public props: T;
+    public createdAt: Date;
+    public updatedAt?: Date;
 
-    constructor(props: T, id?: string) {
+    constructor(props: T, id?: string, dateMetadata?: DateMetadata) {
         this.id = new Guid(id);
         this.props = props;
+        this.createdAt = dateMetadata?.createdAt ?? new Date();
+        this.updatedAt = dateMetadata?.updatedAt ?? (id ? new Date() : undefined);
     }
 
     public presenter<E = Record<string, unknown>>() {

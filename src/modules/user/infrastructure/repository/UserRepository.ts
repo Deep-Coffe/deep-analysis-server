@@ -3,9 +3,8 @@ import { UserSchemaType, userSchema } from "../schema/UserSchema";
 import IUserRepository from "./IUserRepository";
 import RepositoryFactory from "@application/repository/RepositoryFactory";
 import UserMapper from "@modules/user/common/UserMapper";
-import Repositories from "@common/enum/Repositories";
 
-@RepositoryFactory.register(Repositories.UserRepository, userSchema)
+@RepositoryFactory.register(userSchema)
 class UserRepository implements IUserRepository {
     private readonly _ormRepository: Repository<UserSchemaType>
 
@@ -14,7 +13,7 @@ class UserRepository implements IUserRepository {
     }
 
     public async save(user: UserSchemaType): Promise<void> {
-        await this._ormRepository.save(user);
+        await this._ormRepository.insert(user);
     }
 
     public async findByUserId(userId: string) {

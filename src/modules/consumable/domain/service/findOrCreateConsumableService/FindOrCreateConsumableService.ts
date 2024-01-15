@@ -1,14 +1,14 @@
-import Repositories from "@common/enum/Repositories";
 import IConsumableRepository from "@modules/consumable/domain/repository/IConsumableRepository";
 import { inject, injectable } from "tsyringe";
 import { FindOrCreateConsumableServiceInputDTO } from "./FindOrCreateConsumableServiceDTO";
 import NotFoundError from "@application/error/NotFoundError";
 import Consumable from "../../entity/Consumable";
 import ConsumableMapper from "@modules/consumable/common/ConsumableMapper";
+import ConsumableRepository from "@modules/consumable/infrastructure/repository/ConsumableRepository";
 
 @injectable()
 class FindOrCreateConsumableService {
-    constructor(@inject(Repositories.ConsumableRepository) private readonly _consumableRepository: IConsumableRepository) { }
+    constructor(@inject(ConsumableRepository) private readonly _consumableRepository: IConsumableRepository) { }
 
     public async execute(data: FindOrCreateConsumableServiceInputDTO) {
         if ('id' in data) {

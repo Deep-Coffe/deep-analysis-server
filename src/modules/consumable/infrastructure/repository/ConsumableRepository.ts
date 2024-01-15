@@ -1,12 +1,11 @@
 import RepositoryFactory from "@application/repository/RepositoryFactory";
-import Repositories from "@common/enum/Repositories";
 import consumableSchema, { ConsumableSchemaType } from "../schema/ConsumableSchema";
 import IConsumableRepository from "../../domain/repository/IConsumableRepository";
 import { ILike, Repository } from "typeorm";
 import Consumable from "@modules/consumable/domain/entity/Consumable";
 import ConsumableMapper from "@modules/consumable/common/ConsumableMapper";
 
-@RepositoryFactory.register(Repositories.ConsumableRepository, consumableSchema)
+@RepositoryFactory.register(consumableSchema)
 class ConsumableRepository implements IConsumableRepository {
     constructor(private _ormRepository: Repository<ConsumableSchemaType>) { }
 

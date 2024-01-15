@@ -2,9 +2,8 @@ import ITreatmentRepository from "@modules/treatment/domain/repository/ITreatmen
 import { Repository } from "typeorm";
 import treatmentSchema, { TreatmentSchemaType } from "../schema/treatmentSchema";
 import RepositoryFactory from "@application/repository/RepositoryFactory";
-import Repositories from "@common/enum/Repositories";
 
-@RepositoryFactory.register(Repositories.TreatmentRepository, treatmentSchema)
+@RepositoryFactory.register(treatmentSchema)
 class TreatmentRepository implements ITreatmentRepository {
     constructor(private readonly _ormRepository: Repository<TreatmentSchemaType>) { }
 

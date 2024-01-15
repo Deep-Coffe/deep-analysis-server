@@ -44,7 +44,7 @@ class AnalysisRepositoryMapper {
                             quantity: raw.treatment_consumable_quantity as number,
                             consumable: {
                                 id: raw.consumable_id as string,
-                                name: raw.consumable_name as string
+                                name: raw.consumable_name as string,
                             }
                         }]
                     }]

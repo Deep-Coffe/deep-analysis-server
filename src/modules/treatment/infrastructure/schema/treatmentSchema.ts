@@ -3,6 +3,8 @@ import { EntitySchema } from "typeorm";
 
 export type TreatmentSchemaType = ITreatment & {
     id: string;
+    createdAt: Date,
+    updatedAt?: Date
 }
 
 const treatmentSchema = new EntitySchema<TreatmentSchemaType>({
@@ -19,6 +21,13 @@ const treatmentSchema = new EntitySchema<TreatmentSchemaType>({
         },
         plagueId: {
             type: 'uuid',
+        },
+        createdAt: {
+            type: 'timestamp'
+        },
+        updatedAt: {
+            type: 'timestamp',
+            nullable: true,
         }
     },
     relations: {

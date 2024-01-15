@@ -3,7 +3,7 @@ import { EntitySchema } from "typeorm";
 
 export type ConsumableSchemaType = IConsumable & {
     id: string;
-    createdAt?: Date;
+    createdAt: Date;
     updatedAt?: Date;
 }
 
@@ -20,14 +20,10 @@ const consumableSchema = new EntitySchema<ConsumableSchemaType>({
         },
         createdAt: {
             type: 'timestamp',
-            default: 'CURRENT_TIMESTAMP',
-            createDate: true,
         },
         updatedAt: {
             type: 'timestamp',
-            default: 'CURRENT_TIMESTAMP',
-            nullable: true,
-            updateDate: true,
+            nullable: true
         }
     }
 });

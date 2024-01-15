@@ -17,6 +17,20 @@ export class PlagueMigrations1704378260213 implements MigrationInterface {
                     type: 'varchar',
                     isUnique: true,
                 },
+                {
+                    name: 'description',
+                    type: 'text',
+                    isNullable: true,
+                },
+                {
+                    name: 'createdAt',
+                    type: 'timestamp',
+                },
+                {
+                    name: 'updatedAt',
+                    type: 'timestamp',
+                    isNullable: true,
+                }
             ]
         }));
     }

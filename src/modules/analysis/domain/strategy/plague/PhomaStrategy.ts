@@ -1,12 +1,12 @@
-import Plague from "@modules/valueObject/plague/Plague";
 import IPlagueStrategy from "./IPlagueStrategy";
-import { PlagueEnum } from "@common/enum/Plague";
+import { PlagueEnum } from "@common/enum/PlagueEnum";
 import IAnalysis from "../../entity/IAnalysis";
+import Plague from "@modules/plague/domain/entity/Plague";
 
 class PhomaStrategy implements IPlagueStrategy {
 
     public analyser(analysisData: IAnalysis): Plague | undefined {
-        if (analysisData.phoma >= 0.9) return new Plague(PlagueEnum.Phoma, analysisData.phoma);
+        if (analysisData.phoma >= 0.9) return Plague.createPlague({ name: PlagueEnum.Phoma, percent: analysisData.phoma });
     }
 }
 

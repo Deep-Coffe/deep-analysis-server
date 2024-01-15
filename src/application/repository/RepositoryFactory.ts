@@ -9,11 +9,11 @@ type targetType = {
 }
 
 class RepositoryFactory {
-    static repositories: Map<string, targetType> = new Map();
+    static repositories: Map<Types, targetType> = new Map();
 
-    static register(repositoryKey: string, schema: EntitySchema) {
+    static register(schema: EntitySchema) {
         return function (repository: Types) {
-            RepositoryFactory.repositories.set(repositoryKey, {
+            RepositoryFactory.repositories.set(repository, {
                 repository,
                 schema
             });

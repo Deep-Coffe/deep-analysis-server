@@ -21,9 +21,8 @@ class CreateTreatmentController implements IController {
             }
         }));
 
-
         const treatment = await this._createTreatmentService.execute({
-            plagueName: payload.plagueName,
+            plagueId: payload.plagueId,
             name: payload.name,
             consumables: consumables,
         });

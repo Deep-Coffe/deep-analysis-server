@@ -1,14 +1,11 @@
 import RepositoryFactory from "@application/repository/RepositoryFactory";
-import Repositories from "@common/enum/Repositories";
 import IAnalysisRepository from "@modules/analysis/domain/repository/IAnalysisRepository";
 import analysisSchema, { AnalysisSchemaType } from "../schema/AnalysisSchema";
 import { Repository } from "typeorm";
-import plagueSchema from "@modules/valueObject/plague/schema/PlagueSchema";
-import { PlagueEnum } from "@common/enum/Plague";
 import AnalysisRepositoryMapper from "./AnalysisRepositoryMapper";
 import { ListAnalysisOutputDTO } from "./AnalysisRepositoryDTO";
 
-@RepositoryFactory.register(Repositories.AnalysisRepository, analysisSchema)
+@RepositoryFactory.register(analysisSchema)
 class AnalysisRepository implements IAnalysisRepository {
     constructor(private readonly _ormRepository: Repository<AnalysisSchemaType>) { }
 
@@ -46,16 +43,6 @@ class AnalysisRepository implements IAnalysisRepository {
             .getRawMany();
 
         return AnalysisRepositoryMapper.list(data);
-    }
-
-    public async findPlagueIdByName(name: PlagueEnum): Promise<string | undefined> {
-        const data = await this._ormRepository.manager.findOne(plagueSchema, {
-            where: {
-                name
-            }
-        })
-
-        return data?.id
     }
 }
 

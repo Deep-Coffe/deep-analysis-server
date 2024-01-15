@@ -1,4 +1,4 @@
-import Plague from "@modules/valueObject/plague/Plague";
+import Plague from "@modules/plague/domain/entity/Plague";
 
 export type DiagnosticType = {
     healthy: boolean;

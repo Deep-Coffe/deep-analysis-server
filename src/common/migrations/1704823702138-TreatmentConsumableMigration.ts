@@ -20,6 +20,15 @@ export class TreatmentConsumableMigration1704823702138 implements MigrationInter
                     name: 'quantity',
                     type: 'integer'
                 },
+                {
+                    name: 'createdAt',
+                    type: 'timestamp',
+                },
+                {
+                    name: 'updatedAt',
+                    type: 'timestamp',
+                    isNullable: true,
+                }
             ],
             foreignKeys: [
                 {

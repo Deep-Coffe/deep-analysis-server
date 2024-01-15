@@ -4,6 +4,8 @@ import { EntitySchema } from "typeorm";
 export type AnalysisSchemaType = IAnalysis & {
     id: string,
     plagueId?: string,
+    createdAt: Date;
+    updatedAt?: Date;
 };
 
 const analysisSchema = new EntitySchema<AnalysisSchemaType>({
@@ -44,9 +46,11 @@ const analysisSchema = new EntitySchema<AnalysisSchemaType>({
         },
         createdAt: {
             type: 'timestamp',
-            default: 'CURRENT_TIMESTAMP',
-            createDate: true,
         },
+        updatedAt: {
+            type: 'timestamp',
+            nullable: true,
+        }
     },
     relations: {
         userId: {

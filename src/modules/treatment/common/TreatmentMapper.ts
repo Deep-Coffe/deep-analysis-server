@@ -8,6 +8,8 @@ export default class TreatmentMapper {
         return {
             id: treatment.id.toString(),
             ...treatment.props,
+            createdAt: treatment.createdAt,
+            updatedAt: treatment.updatedAt
         }
     }
 

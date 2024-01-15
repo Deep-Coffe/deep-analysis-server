@@ -1,10 +1,10 @@
-import Repositories from "@common/enum/Repositories";
 import { inject, injectable } from "tsyringe";
 import IAnalysisRepository from "../../repository/IAnalysisRepository";
+import AnalysisRepository from "@modules/analysis/infrastructure/repository/AnalysisRepository";
 
 @injectable()
 class ListAnalysisService {
-    constructor(@inject(Repositories.AnalysisRepository) private readonly _analysisRepository: IAnalysisRepository) { }
+    constructor(@inject(AnalysisRepository) private readonly _analysisRepository: IAnalysisRepository) { }
 
     public async execute(userId: string) {
         return this._analysisRepository.findAllByUserId(userId);

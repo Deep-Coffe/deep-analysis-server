@@ -52,7 +52,11 @@ export class AnalysisMigration1704386628128 implements MigrationInterface {
                 {
                     name: 'createdAt',
                     type: 'timestamp',
-                    default: 'CURRENT_TIMESTAMP'
+                },
+                {
+                    name: 'updatedAt',
+                    type: 'timestamp',
+                    isNullable: true,
                 }
             ],
             foreignKeys: [

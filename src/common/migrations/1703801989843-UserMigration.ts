@@ -17,6 +17,15 @@ export class UserMigration1703801989843 implements MigrationInterface {
                     type: 'uuid',
                     isUnique: true,
                 },
+                {
+                    name: 'createdAt',
+                    type: 'timestamp',
+                },
+                {
+                    name: 'updatedAt',
+                    type: 'timestamp',
+                    isNullable: true,
+                }
             ]
         }))
     }

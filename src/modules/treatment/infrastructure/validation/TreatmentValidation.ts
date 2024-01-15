@@ -1,10 +1,9 @@
-import { PlagueEnum } from "@common/enum/Plague";
 import Joi from "joi";
 
 export default class TreatmentValidation {
     public createTreatment() {
         return Joi.object({
-            plagueName: Joi.string().valid(...Object.values(PlagueEnum)).required(),
+            plagueId: Joi.string().uuid().required(),
             name: Joi.string(),
             consumables: Joi.array().items(Joi.object({
                 quantity: Joi.number().integer().required(),

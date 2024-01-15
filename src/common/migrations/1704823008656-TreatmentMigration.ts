@@ -21,6 +21,15 @@ export class TreatmentMigration1704823008656 implements MigrationInterface {
                     name: 'plagueId',
                     type: 'uuid'
                 },
+                {
+                    name: 'createdAt',
+                    type: 'timestamp',
+                },
+                {
+                    name: 'updatedAt',
+                    type: 'timestamp',
+                    isNullable: true,
+                }
             ],
             foreignKeys: [
                 {

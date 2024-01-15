@@ -19,12 +19,10 @@ export class ConsumableMigration1704820865016 implements MigrationInterface {
                 {
                     name: 'createdAt',
                     type: 'timestamp',
-                    default: 'CURRENT_TIMESTAMP',
                 },
                 {
                     name: 'updatedAt',
                     type: 'timestamp',
-                    default: 'CURRENT_TIMESTAMP',
                     isNullable: true,
                 }
             ]
