@@ -11,6 +11,7 @@ import ISetup from "@application/setup/ISetup";
 import DataBaseSetup from "@application/setup/DataBaseSetup";
 import helmet from "helmet";
 import compression from "compression";
+import KafkaSetup from "@application/setup/KafkaSetup";
 
 class Application {
     private readonly app: Express;
@@ -18,24 +19,12 @@ class Application {
 
     constructor() {
         this.app = express();
-        this.setups = []
-    }
-
-    private setupRoutes() {
-        const routerSetup = new RouterSetup(this.app);
-        this.setups.push(routerSetup);
-        return routerSetup
-    }
-
-    private setupDataBase() {
-        const databaseSetup = new DataBaseSetup();
-        this.setups.push(databaseSetup);
-        return databaseSetup
+        this.setups = [new RouterSetup(this.app), new DataBaseSetup(), new KafkaSetup()]
     }
 
     private async runSetups() {
         for (const setup of this.setups) {
-            setup.run();
+            await setup.run();
         }
     }
 
@@ -63,8 +52,6 @@ class Application {
 
 
     public runServer() {
-        this.setupDataBase();
-        this.setupRoutes();
         this.setupApplication().then(() => this.app.listen(EnvConfig.getPort(), () => {
             Logger.info(`Server start in port ${EnvConfig.getPort()}`)
         })).catch(err => Logger.error(err))

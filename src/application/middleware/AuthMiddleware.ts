@@ -2,7 +2,7 @@ import Logger from "@application/config/LoggerConfig";
 import AppDataSource from "@application/database/AppDataSource";
 import Injection from "@application/helpers/Injection";
 import AuthProvider from "@application/provider/AuthProvider";
-import FindOrCreateService from "@modules/user/domain/service/findOrCreateService/FindOrCreateService";
+import FindUserService from "@modules/user/domain/service/findUserService/FindUserService";
 import { NextFunction, Request, Response } from "express";
 import { injectable } from "tsyringe";
 
@@ -20,8 +20,8 @@ class AuthMiddleware {
             await queryRunner.connect();
             await queryRunner.startTransaction();
 
-            const findOrCreateService = injection.resolver(FindOrCreateService, queryRunner);
-            const id = await findOrCreateService.execute(userId);
+            const findUserService = injection.resolver(FindUserService, queryRunner);
+            const id = await findUserService.execute(userId);
 
             await queryRunner.commitTransaction();
 
