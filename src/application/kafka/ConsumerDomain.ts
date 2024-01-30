@@ -19,6 +19,7 @@ export abstract class SubscriberDomain {
         const consumer = await KafkaConnection.getConsumer();
         await consumer.run({
             eachMessage: async ({ message }) => {
+                Logger.info(`Handle message at: ${message.timestamp}`)
                 try {
                     const buf = Buffer.from(message.value as Buffer);
                     const base64Data = buf.toString();

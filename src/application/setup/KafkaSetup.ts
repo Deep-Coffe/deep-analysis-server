@@ -37,9 +37,7 @@ class KafkaSetup implements ISetup {
             }
         });
 
-        for (const subscribe of subscribers) {
-            await subscribe.setup(injection);
-        }
+        subscribers.forEach(subscriber => subscriber.setup(injection));
         Logger.info('Subscriber setup run with success');
     }
 
