@@ -4,11 +4,10 @@ import { FindOrCreateConsumableServiceInputDTO } from "./FindOrCreateConsumableS
 import NotFoundError from "@application/error/NotFoundError";
 import Consumable from "../../entity/Consumable";
 import ConsumableMapper from "@modules/consumable/common/ConsumableMapper";
-import ConsumableRepository from "@modules/consumable/infrastructure/repository/ConsumableRepository";
 
 @injectable()
 class FindOrCreateConsumableService {
-    constructor(@inject(ConsumableRepository) private readonly _consumableRepository: IConsumableRepository) { }
+    constructor(@inject('ConsumableRepository') private readonly _consumableRepository: IConsumableRepository) { }
 
     public async execute(data: FindOrCreateConsumableServiceInputDTO) {
         if ('id' in data) {

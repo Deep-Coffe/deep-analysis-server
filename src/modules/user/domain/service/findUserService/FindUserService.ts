@@ -1,11 +1,10 @@
 import IUserRepository from "@modules/user/infrastructure/repository/IUserRepository";
 import { inject, injectable } from "tsyringe";
 import { cache } from "@common/cache/Cache";
-import UserRepository from "@modules/user/infrastructure/repository/UserRepository";
 
 @injectable()
 class FindUserService {
-    constructor(@inject(UserRepository) private readonly _userRepository: IUserRepository) { }
+    constructor(@inject('UserRepository') private readonly _userRepository: IUserRepository) { }
 
     public async execute(userId: string) {
         const userCached = cache.get(userId);

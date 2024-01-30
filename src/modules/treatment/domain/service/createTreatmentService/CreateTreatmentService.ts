@@ -4,17 +4,14 @@ import { CreateTreatmentServiceInputDTO } from "./CreateTreatmentServiceDTO";
 import ITreatmentRepository from "../../repository/ITreatmentRepository";
 import TreatmentMapper from "@modules/treatment/common/TreatmentMapper";
 import ITreatmentConsumableRepository from "../../repository/ITreatmentConsumableRepository";
-import TreatmentRepository from "@modules/treatment/infrastructure/repository/TreatmentRepository";
-import TreatmentConsumableRepository from "@modules/treatment/infrastructure/repository/TreatmentConsumableRepository";
-import PlagueRepository from "@modules/plague/infrastructure/repository/PlagueRepository";
 import IPlagueRepository from "@modules/plague/domain/repository/IPlagueRepository";
 import NotFoundError from "@application/error/NotFoundError";
 
 @injectable()
 class CreateTreatmentService {
-    constructor(@inject(TreatmentRepository) private readonly _treatmentRepository: ITreatmentRepository,
-        @inject(TreatmentConsumableRepository) private readonly _treatmentConsumableRepository: ITreatmentConsumableRepository,
-        @inject(PlagueRepository) private readonly _plagueRepository: IPlagueRepository,
+    constructor(@inject('TreatmentRepository') private readonly _treatmentRepository: ITreatmentRepository,
+        @inject('TreatmentConsumableRepository') private readonly _treatmentConsumableRepository: ITreatmentConsumableRepository,
+        @inject('PlagueRepository') private readonly _plagueRepository: IPlagueRepository,
     ) { }
 
     public async execute(data: CreateTreatmentServiceInputDTO) {

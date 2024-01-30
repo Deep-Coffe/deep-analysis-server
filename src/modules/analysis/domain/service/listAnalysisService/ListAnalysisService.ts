@@ -4,7 +4,7 @@ import AnalysisRepository from "@modules/analysis/infrastructure/repository/Anal
 
 @injectable()
 class ListAnalysisService {
-    constructor(@inject(AnalysisRepository) private readonly _analysisRepository: IAnalysisRepository) { }
+    constructor(@inject('AnalysisRepository') private readonly _analysisRepository: IAnalysisRepository) { }
 
     public async execute(userId: string) {
         return this._analysisRepository.findAllByUserId(userId);

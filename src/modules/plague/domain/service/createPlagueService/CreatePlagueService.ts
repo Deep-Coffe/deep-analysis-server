@@ -1,4 +1,3 @@
-import PlagueRepository from "@modules/plague/infrastructure/repository/PlagueRepository";
 import { inject, injectable } from "tsyringe";
 import IPlagueRepository from "../../repository/IPlagueRepository";
 import { CreatePlagueControllerInputDTO } from "@modules/plague/infrastructure/controller/CreatePlagueController/CreatePlagueControllerDTO";
@@ -8,7 +7,7 @@ import PlagueMapper from "@modules/plague/common/PlagueMapper";
 
 @injectable()
 class CreatePlagueService {
-    constructor(@inject(PlagueRepository) private readonly _plagueRepository: IPlagueRepository) { }
+    constructor(@inject('PlagueRepository') private readonly _plagueRepository: IPlagueRepository) { }
 
     public async execute(data: CreatePlagueControllerInputDTO) {
         const plagueExists = await this._plagueRepository.findByName(data.name);
