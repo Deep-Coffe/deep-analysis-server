@@ -42,9 +42,6 @@ class AnalysisRepository implements IAnalysisRepository {
             .where('analysis.userId = :userId', { userId })
             .getRawMany();
 
-
-        console.log({ data });
-
         return AnalysisRepositoryMapper.list(data);
     }
 }

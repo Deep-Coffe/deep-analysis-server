@@ -9,8 +9,6 @@ class TreatmentConsumableRepository implements ITreatmentConsumableRepository {
     constructor(private readonly _ormRepository: Repository<TreatmentConsumableSchemaType>) { }
 
     public async save(treatmentConsumable: TreatmentConsumableSchemaType[]): Promise<void> {
-        console.log({ treatmentConsumable });
-
         await this._ormRepository.insert(treatmentConsumable);
     }
 }

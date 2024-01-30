@@ -12,8 +12,6 @@ class AddAnalysisService {
         @inject('PlagueRepository') private readonly _plagueRepository: IPlagueRepository) { }
 
     public async execute(data: AddAnalysisServiceInputDTO) {
-        console.log(data.analyzedAt);
-
         const analysis = Analysis.createAnalysis({
             analyzedAt: data.analyzedAt ?? new Date(),
             ...data,
