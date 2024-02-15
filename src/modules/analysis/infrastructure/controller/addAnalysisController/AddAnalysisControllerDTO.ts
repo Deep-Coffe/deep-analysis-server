@@ -1,5 +1,7 @@
 import IAnalysis from "@modules/analysis/domain/entity/IAnalysis";
 
-export type AddAnalysisControllerInputDTO = Omit<IAnalysis, 'createdAt' | 'userId' | 'analyzedAt'> & {
+export type AddAnalysisControllerInputDTO = {
+    author: string;
+    image: string;
     analyzedAt?: Date;
 };

@@ -13,22 +13,14 @@ class ControllerMiddleware {
         await queryRunner.connect();
         await queryRunner.startTransaction();
 
-        /* 
-                This not will producer message yet
-                const producer = await KafkaConnection.getProducer();
-                const messageSubject = new MessageSubject(producer); 
-                */
-        const controller = injection.resolver(target, queryRunner,);
+        const controller = injection.resolver(target, queryRunner);
 
         try {
             Logger.info(`Run Controller: ${target.name}`);
             const response = await controller.handle(payload);
 
             await queryRunner.commitTransaction();
-            /*
-            This not will producer message yet 
-            await messageSubject.notify(); 
-            */
+
             return response;
         } catch (error) {
             Logger.info('Rollback transaction')
@@ -37,9 +29,6 @@ class ControllerMiddleware {
             throw error;
         } finally {
             await queryRunner.release();
-            /*          
-                        This not will producer message yet
-                        await producer.disconnect() */
         }
     }
 }

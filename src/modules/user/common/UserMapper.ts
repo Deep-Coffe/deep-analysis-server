@@ -6,9 +6,9 @@ class UserMapper {
     static toPersist(user: User): UserSchemaType {
         return {
             id: user.id.toString(),
-            userId: user.props.userId,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
+            ...user.props,
         }
     }
 
@@ -16,9 +16,12 @@ class UserMapper {
         if (!raw) return;
 
         return User.createUser({
-            userId: raw.userId as string,
+            name: raw.name,
+            email: raw.email,
+            password: raw.password,
+            phone: raw.phone,
         },
-            raw.id as string,
+            raw.id,
             Converter.convertDateMetadata(raw));
     }
 }

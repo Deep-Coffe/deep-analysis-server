@@ -13,14 +13,14 @@ class AnalysisRoute extends RouterDomain<AnalysisValidation> {
             controller: AddAnalysisController,
             validationMethod: 'addAnalysisValidate',
             isAuthenticate: true,
-            successResponseCode: 200,
+            responseCode: 200,
         },
         {
             method: HttpMethods.GET,
             path: '/',
             controller: ListAnalysisController,
             isAuthenticate: true,
-            successResponseCode: 200,
+            responseCode: 200,
         }
     ];
 

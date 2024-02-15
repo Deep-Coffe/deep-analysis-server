@@ -9,13 +9,25 @@ export class UserMigration1703801989843 implements MigrationInterface {
                 {
                     name: 'id',
                     type: 'uuid',
-                    isUnique: true,
                     isPrimary: true
                 },
                 {
-                    name: 'userId',
-                    type: 'uuid',
+                    name: 'name',
+                    type: 'varchar',
+                },
+                {
+                    name: 'email',
+                    type: 'varchar',
                     isUnique: true,
+                },
+                {
+                    name: 'phone',
+                    type: 'varchar',
+                    isNullable: true,
+                },
+                {
+                    name: 'password',
+                    type: 'varchar',
                 },
                 {
                     name: 'createdAt',
@@ -27,11 +39,10 @@ export class UserMigration1703801989843 implements MigrationInterface {
                     isNullable: true,
                 }
             ]
-        }))
+        }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable("users");
     }
-
 }

@@ -7,6 +7,7 @@ export type RouterConfigType<V = undefined> = {
     path: string,
     controller: Types<IController>,
     isAuthenticate?: boolean,
-    successResponseCode: number,
+    responseCode?: number,
     validationMethod?: keyof V,
+    isStream?: boolean
 }

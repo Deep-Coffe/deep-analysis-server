@@ -3,6 +3,7 @@ import { UserSchemaType, userSchema } from "../schema/UserSchema";
 import IUserRepository from "./IUserRepository";
 import RepositoryFactory from "@application/repository/RepositoryFactory";
 import UserMapper from "@modules/user/common/UserMapper";
+import User from "@modules/user/domain/entity/User";
 
 @RepositoryFactory.register(userSchema)
 class UserRepository implements IUserRepository {
@@ -13,13 +14,23 @@ class UserRepository implements IUserRepository {
     }
 
     public async save(user: UserSchemaType): Promise<void> {
-        await this._ormRepository.insert(user);
+        await this._ormRepository.save(user);
     }
 
-    public async findByUserId(userId: string) {
+    public async findByEmail(email: string): Promise<User | undefined> {
+        const user = await this._ormRepository.findOne({
+            where: {
+                email
+            }
+        });
+
+        return UserMapper.toDomain(user);
+    }
+
+    public async findById(id: string) {
         const userData = await this._ormRepository.findOne({
             where: {
-                userId
+                id
             }
         });
 

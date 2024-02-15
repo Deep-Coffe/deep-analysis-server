@@ -30,9 +30,9 @@ abstract class RouterDomain<V = undefined> implements IHandleDomain<V> {
 
             this._router[router.method](
                 router.path,
-                auth.handle(injection, router.isAuthenticate),
+                auth.handle(router.isAuthenticate),
                 ValidatorMiddleware.handle<V>(this.validator, router.validationMethod),
-                routerMiddleware.handle(router.controller, injection));
+                routerMiddleware.handle(router.controller, injection, router.responseCode, router.isStream));
 
         });
     }

@@ -1,30 +1,41 @@
 import { EntitySchema } from "typeorm";
 import IUser from "../../domain/entity/IUser";
+import { EntitySchemaType } from "@application/schema/EntitySchemaType";
 
-export type UserSchemaType = IUser & {
-    id: string;
-    createdAt: Date,
-    updatedAt?: Date
-}
+export type UserSchemaType = EntitySchemaType<IUser> & {
+    createdAt: Date;
+    updatedAt?: Date;
+};
 
 export const userSchema = new EntitySchema<UserSchemaType>({
     name: 'users',
     columns: {
         id: {
-            type: 'uuid',
+            type: String,
             unique: true,
             primary: true,
         },
-        userId: {
-            type: 'uuid',
+        name: {
+            type: String,
+        },
+        email: {
+            type: String,
             unique: true,
         },
+        phone: {
+            type: String,
+            nullable: true,
+        },
+        password: {
+            type: String,
+        },
         createdAt: {
-            type: 'timestamp',
+            type: Date,
+            createDate: true,
         },
         updatedAt: {
-            type: 'timestamp',
-            nullable: true,
-        }
+            type: Date,
+            updateDate: true,
+        },
     },
 });

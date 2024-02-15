@@ -11,7 +11,8 @@ import ISetup from "@application/setup/ISetup";
 import DataBaseSetup from "@application/setup/DataBaseSetup";
 import helmet from "helmet";
 import compression from "compression";
-import KafkaSetup from "@application/setup/KafkaSetup";
+import cors from "cors";
+import { serverConfig } from "@config/env/ServerConfig";
 
 class Application {
     private readonly app: Express;
@@ -19,7 +20,7 @@ class Application {
 
     constructor() {
         this.app = express();
-        this.setups = [new RouterSetup(this.app), new DataBaseSetup(), new KafkaSetup()]
+        this.setups = [new RouterSetup(this.app), new DataBaseSetup()]
     }
 
     private async runSetups() {
@@ -32,7 +33,10 @@ class Application {
         Logger.info('Configuring server');
         this.app.use(helmet());
         this.app.use(compression());
-        this.app.use(express.json());
+        this.app.use(express.json({ limit: serverConfig.bodyLimit }));
+        this.app.use(cors({
+            origin: serverConfig.client
+        }))
 
         await this.runSetups();
 

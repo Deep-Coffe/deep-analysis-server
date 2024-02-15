@@ -47,6 +47,9 @@ const analysisSchema = new EntitySchema<AnalysisSchemaType>({
         createdAt: {
             type: 'timestamp',
         },
+        attachmentId: {
+            type: 'uuid',
+        },
         updatedAt: {
             type: 'timestamp',
             nullable: true,
@@ -68,6 +71,14 @@ const analysisSchema = new EntitySchema<AnalysisSchemaType>({
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
             joinColumn: { name: "plagueId" }
+        },
+        attachmentId: {
+            cascade: true,
+            type: 'many-to-one',
+            target: 'attachment',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+            joinColumn: { name: "attachmentId" }
         }
     }
 });

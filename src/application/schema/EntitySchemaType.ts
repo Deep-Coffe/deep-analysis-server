@@ -1,1 +1,1 @@
-export type EntitySchemaType<T> = T & { id: string } & Record<string, unknown>
+export type EntitySchemaType<T> = T & { id: string }

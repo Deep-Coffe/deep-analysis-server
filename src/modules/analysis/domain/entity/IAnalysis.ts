@@ -7,5 +7,6 @@ export default interface IAnalysis {
     leafRust: number;
     miner: number;
     phoma: number;
+    attachmentId?: string;
     createdAt?: Date;
 }

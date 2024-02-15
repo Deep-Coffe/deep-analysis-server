@@ -6,3 +6,4 @@ key/private_key.pem
 key/public_key.pem
 .docker
 .env
+data

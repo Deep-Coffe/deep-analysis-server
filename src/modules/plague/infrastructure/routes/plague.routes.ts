@@ -13,7 +13,7 @@ class PlagueRoute extends RouterDomain<PlagueValidation> {
             method: HttpMethods.GET,
             controller: ListPlagueController,
             path: '/',
-            successResponseCode: HttpResponseCode.SUCCESS
+            responseCode: HttpResponseCode.SUCCESS
         },
         {
             method: HttpMethods.POST,
@@ -21,7 +21,7 @@ class PlagueRoute extends RouterDomain<PlagueValidation> {
             path: '/',
             validationMethod: 'validateCreatePlague',
             isAuthenticate: true,
-            successResponseCode: HttpResponseCode.SUCCESS
+            responseCode: HttpResponseCode.SUCCESS
         }
     ];
 

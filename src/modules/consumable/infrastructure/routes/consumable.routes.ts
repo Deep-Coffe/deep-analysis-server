@@ -12,7 +12,7 @@ class ConsumableRoute extends RouterDomain<ConsumableValidation> {
             path: '/',
             validationMethod: 'listConsumable',
             controller: ListConsumableController,
-            successResponseCode: HttpResponseCode.SUCCESS,
+            responseCode: HttpResponseCode.SUCCESS,
         }
     ];
 

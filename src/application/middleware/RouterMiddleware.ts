@@ -8,12 +8,13 @@ import AppError from "@application/error/AppError";
 import ServerError from "@application/error/ServerError";
 import Injection from "@application/helpers/Injection";
 import Logger from "@application/config/LoggerConfig";
+import Stream from 'stream'
 
 @injectable()
 class RouterMiddleware {
     constructor(private readonly controllerMiddleware: ControllerMiddleware) { }
 
-    public handle = (target: Types<IController>, injection: Injection, responseStatus = 200) => async (req: Request, res: Response, next: NextFunction) => {
+    public handle = (target: Types<IController>, injection: Injection, responseStatus = 200, isStream = false) => async (req: Request, res: Response, next: NextFunction) => {
         const data: ControllerInput<Record<string, unknown>> = {
             payload: {
                 ...req.params,
@@ -28,9 +29,20 @@ class RouterMiddleware {
         try {
             const response = await this.controllerMiddleware.handle(target, injection, data);
 
-            res.status(responseStatus).json({
-                data: response
-            });
+
+            if (!isStream) {
+                res.status(responseStatus).json({
+                    data: response
+                });
+            } else {
+                const readableStream = new Stream.Readable();
+                readableStream.push(JSON.stringify(response));
+                readableStream.push(null);
+
+                res.set('Content-Type', 'application/json');
+
+                readableStream.pipe(res);
+            }
 
         } catch (error) {
             Logger.error(error as Error)
