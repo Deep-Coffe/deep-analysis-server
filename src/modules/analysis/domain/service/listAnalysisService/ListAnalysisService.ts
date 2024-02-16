@@ -1,6 +1,5 @@
 import { inject, injectable } from "tsyringe";
 import IAnalysisRepository from "../../repository/IAnalysisRepository";
-import AnalysisRepository from "@modules/analysis/infrastructure/repository/AnalysisRepository";
 
 @injectable()
 class ListAnalysisService {

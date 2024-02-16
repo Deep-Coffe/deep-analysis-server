@@ -13,13 +13,13 @@ class AnalysisRepositoryMapper {
                 existingAnalysis?.treatments.push({
                     id: raw.treatment_id as string,
                     name: raw.treatment_name as string,
-                    consumables: [{
+                    consumables: raw.consumable_id ? [{
                         quantity: raw.treatment_consumable_quantity as number,
                         consumable: {
                             id: raw.consumable_id as string,
                             name: raw.consumable_name as string
                         }
-                    }]
+                    }] : []
                 });
 
             } else {
@@ -33,21 +33,24 @@ class AnalysisRepositoryMapper {
                     miner: raw.miner as number,
                     healthy: raw.healthy as number,
                     analyzedAt: raw.analyzedat as Date,
+                    attachment: {
+                        fileName: raw.filename as string,
+                    },
                     plague: {
                         id: raw.plague_id as string,
                         name: raw.plague_name as string
                     },
-                    treatments: [{
+                    treatments: raw.treatment_id ? [{
                         id: raw.treatment_id as string,
                         name: raw.treatment_name as string,
-                        consumables: [{
+                        consumables: raw.consumable_id ? [{
                             quantity: raw.treatment_consumable_quantity as number,
                             consumable: {
                                 id: raw.consumable_id as string,
                                 name: raw.consumable_name as string,
                             }
-                        }]
-                    }]
+                        }] : []
+                    }] : []
                 };
 
                 analysisMap.set(id, newAnalysis);

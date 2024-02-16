@@ -27,7 +27,12 @@ class AddAnalysisController implements IController {
             ...classifications,
         });
 
-        return result;
+        return {
+            attachment: {
+                fileName: attachment.getFileName(),
+            },
+            ...result,
+        };
     }
 }
 

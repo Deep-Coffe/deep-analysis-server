@@ -12,8 +12,10 @@ class AuthProvider {
         }, AuthConfig.privateKey(), { algorithm: 'RS256', expiresIn: '7d' });
     }
 
-    public verify(token?: string) {
-        if (!token) throw new AuthenticateError('Must pass auth token');
+    public verify(tokenRaw?: string) {
+        if (!tokenRaw) throw new AuthenticateError('Must pass auth token');
+
+        const [, token] = tokenRaw.split(' ')
 
         try {
             const sub = verify(token, AuthConfig.publicKey(), { algorithms: ['RS256'] }) as JwtPayload;

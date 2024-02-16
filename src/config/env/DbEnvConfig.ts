@@ -11,4 +11,5 @@ export const DbEnvConfig = {
     database: process.env.DB_DATABASE ?? "local",
     synchronize: EnvHelper.getBoolean(process.env.SYNCHRONIZE) ?? true,
     logging: EnvHelper.getBoolean(process.env.LOGGING) ?? false,
+    migrationRun: EnvHelper.getBoolean(process.env.RUN_MIGRATION) ?? true
 }

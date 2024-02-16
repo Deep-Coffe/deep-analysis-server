@@ -19,8 +19,6 @@ class AppDataSource {
 
     static async connect() {
         await AppDataSource.appDataSource.initialize();
-        if (await (AppDataSource.appDataSource.showMigrations()))
-            await AppDataSource.appDataSource.runMigrations();
     }
 }
 

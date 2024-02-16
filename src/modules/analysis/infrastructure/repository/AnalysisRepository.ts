@@ -25,6 +25,7 @@ class AnalysisRepository implements IAnalysisRepository {
                 'analysis.miner as miner',
                 'analysis.healthy as healthy',
                 'analysis.analyzedAt as analyzedAt',
+                'attachment.fileName as filename',
                 'plague.id',
                 'plague.name',
                 'treatment.id',
@@ -36,6 +37,7 @@ class AnalysisRepository implements IAnalysisRepository {
                 'analysis.createdAt as createdAt',
             ])
             .leftJoin('plague', 'plague', 'analysis.plagueId = plague.id')
+            .leftJoin('attachment', 'attachment', 'analysis."attachmentId" = attachment.id')
             .leftJoin('treatment', 'treatment', 'plague.id = treatment.plagueId')
             .leftJoin('treatment_consumable', 'treatment_consumable', 'treatment_consumable.treatmentId = treatment.id')
             .leftJoin('consumable', 'consumable', 'consumable.id = treatment_consumable.consumableId')

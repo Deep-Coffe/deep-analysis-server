@@ -4,6 +4,9 @@ import { ConsumableSchemaType } from "@modules/consumable/infrastructure/schema/
 
 export type ListAnalysisOutputDTO = Omit<AnalysisSchemaType, 'createdAt'> & {
     id: string;
+    attachment: {
+        fileName: string
+    },
     plague: {
         id: string,
         name: string

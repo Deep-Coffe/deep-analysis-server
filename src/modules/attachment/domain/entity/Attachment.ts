@@ -6,6 +6,10 @@ class Attachment extends Entity<IAttachment> {
         super(props, id);
     }
 
+    public getFileName() {
+        return this.props.fileName;
+    }
+
     static createAttachment(props: IAttachment, id?: string) {
         return new Attachment(props, id);
     }
