@@ -1,21 +1,13 @@
-import { injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { ClassifyImageInputDTO, ClassifyImageOutputDTO } from "./ClassifyImageServiceDTO";
+import IClassifyModel from "@modules/analysis/infrastructure/model/classifyModel/IClassifyModel";
 
 @injectable()
 class ClassifyImageService {
-    constructor() { }
+    constructor(@inject('ClassifyModel') private readonly _classifyModel: IClassifyModel) { }
 
     public async execute(data: ClassifyImageInputDTO): Promise<ClassifyImageOutputDTO> {
-
-        await Promise.resolve()
-
-        return {
-            miner: Math.random(),
-            phoma: Math.random(),
-            cerscospora: Math.random(),
-            leafRust: Math.random(),
-            healthy: Math.random()
-        }
+        return await this._classifyModel.run(data);
     }
 }
 
