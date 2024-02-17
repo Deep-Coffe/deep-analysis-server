@@ -7,3 +7,4 @@ key/public_key.pem
 .docker
 .env
 data
+temp
