@@ -24,6 +24,7 @@ class AddAnalysisController implements IController {
             userId: user.id,
             author: payload.author,
             analyzedAt: payload.analyzedAt,
+            name: payload.name,
             attachmentId: attachment.id.toString(),
             ...classifications,
         });

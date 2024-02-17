@@ -16,6 +16,9 @@ const analysisSchema = new EntitySchema<AnalysisSchemaType>({
             unique: true,
             primary: true,
         },
+        name: {
+            type: 'varchar'
+        },
         userId: {
             type: 'uuid',
         },

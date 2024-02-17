@@ -38,6 +38,10 @@ class Analysis extends Entity<IAnalysis> {
         };
     }
 
+    public validateUserOwnership(id: string) {
+        return this.props.userId === id;
+    }
+
     public analyser(): DiagnosticType {
         const plagues = [];
 
@@ -62,8 +66,10 @@ class Analysis extends Entity<IAnalysis> {
         return this._plague;
     }
 
-    static createAnalysis(props: IAnalysis, id?: string, date?: DateMetadata) {
-        return new Analysis(props, id, date);
+    static createAnalysis(props: Omit<IAnalysis, 'analyzedAt'> & { analyzedAt?: Date }, id?: string, date?: DateMetadata) {
+        props.analyzedAt ??= new Date();
+
+        return new Analysis(props as IAnalysis, id, date);
     }
 }
 

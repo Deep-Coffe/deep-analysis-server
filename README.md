@@ -10,7 +10,8 @@ This endpoint allows you to make a analysis by making an HTTP POST request to `a
 
 #### Request Body
 
-- `author` (string, optional): The author of the analysis.
+- `author` (string): The author of the analysis.
+- `name` (string): The name of the analysis.
 - `analyzedAt` (string, optional): The date and time when the analysis was conducted.
 - `image` (string, required): The image data for analysis.
 
@@ -24,6 +25,7 @@ Upon a successful request, the server will respond with a status code of 200 and
   - `id` (string): The ID of the analysis.
   - `analyzedAt` (string): The date and time when the analysis was conducted.
   - `userId` (string): The ID of the user who added the analysis.
+  - `name` (string): The name of the analysis.
   - `author` (string): The author of the analysis.
   - `attachmentId` (string): The ID of the attached file.
   - `miner` (number): The value for miner analysis.

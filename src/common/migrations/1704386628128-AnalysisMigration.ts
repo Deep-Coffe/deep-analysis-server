@@ -26,6 +26,10 @@ export class AnalysisMigration1704386628128 implements MigrationInterface {
                     type: 'varchar',
                 },
                 {
+                    name: 'name',
+                    type: 'varchar',
+                },
+                {
                     name: 'cerscospora',
                     type: 'float',
                 },

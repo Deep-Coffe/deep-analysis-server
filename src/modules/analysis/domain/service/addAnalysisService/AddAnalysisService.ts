@@ -12,11 +12,7 @@ class AddAnalysisService {
         @inject('PlagueRepository') private readonly _plagueRepository: IPlagueRepository) { }
 
     public async execute(data: AddAnalysisServiceInputDTO) {
-        const analysis = Analysis.createAnalysis({
-            analyzedAt: data.analyzedAt ?? new Date(),
-            ...data,
-        });
-
+        const analysis = Analysis.createAnalysis(data);
         const analysisResult = analysis.analyser();
 
         if (analysisResult.plague) {
@@ -30,7 +26,7 @@ class AddAnalysisService {
 
         await this._analysisRepository.save(AnalysisMapper.toPersist(analysis));
 
-        return analysis.presenter()
+        return { plagueId: analysisResult.plague?.id.toString(), ...analysis.presenter() }
     }
 }
 

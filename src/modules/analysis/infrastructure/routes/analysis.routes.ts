@@ -4,6 +4,7 @@ import RouterDomain from "@application/router/RouterDomain";
 import AddAnalysisController from "../controller/addAnalysisController/AddAnalysisController";
 import AnalysisValidation from "../validation/AnalysisValidation";
 import ListAnalysisController from "../controller/listAnalysisController/ListAnalysisController";
+import DeleteAnalysisController from "../controller/deleteAnalysisController/DeleteAnalysisController";
 
 class AnalysisRoute extends RouterDomain<AnalysisValidation> {
     routerConfig: RouterConfigType<AnalysisValidation>[] = [
@@ -19,6 +20,13 @@ class AnalysisRoute extends RouterDomain<AnalysisValidation> {
             method: HttpMethods.GET,
             path: '/',
             controller: ListAnalysisController,
+            isAuthenticate: true,
+            responseCode: 200,
+        },
+        {
+            method: HttpMethods.DELETE,
+            path: '/:id',
+            controller: DeleteAnalysisController,
             isAuthenticate: true,
             responseCode: 200,
         }

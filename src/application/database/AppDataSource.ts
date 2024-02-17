@@ -19,6 +19,7 @@ class AppDataSource {
 
     static async connect() {
         await AppDataSource.appDataSource.initialize();
+        await AppDataSource.appDataSource.runMigrations();
     }
 }
 

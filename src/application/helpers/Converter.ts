@@ -9,7 +9,7 @@ export default class Converter {
 
     static convertDateMetadata(raw: any): DateMetadata {
         return {
-            createdAt: this.covertDate(raw),
+            createdAt: this.covertDate(raw.createdAt),
             updatedAt: raw.updatedAt ? this.covertDate(raw.updatedAt) : undefined
         }
     }

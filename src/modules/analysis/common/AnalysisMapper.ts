@@ -1,3 +1,4 @@
+import Converter from "@application/helpers/Converter";
 import Analysis from "../domain/entity/Analysis";
 import { AnalysisSchemaType } from "../infrastructure/schema/AnalysisSchema";
 
@@ -11,5 +12,23 @@ export default class AnalysisMapper {
             createdAt: analysis.createdAt,
             updatedAt: analysis.updatedAt,
         }
+    }
+
+    static toDomain(raw?: AnalysisSchemaType | null) {
+        if (!raw) return;
+
+        const analysis = Analysis.createAnalysis({
+            userId: raw.userId,
+            author: raw.author,
+            name: raw.name,
+            phoma: raw.phoma,
+            cerscospora: raw.cerscospora,
+            leafRust: raw.leafRust,
+            miner: raw.miner,
+            healthy: raw.healthy,
+            analyzedAt: raw.analyzedAt,
+        }, raw.id, Converter.convertDateMetadata(raw));
+
+        return analysis;
     }
 }

@@ -4,6 +4,8 @@ import analysisSchema, { AnalysisSchemaType } from "../schema/AnalysisSchema";
 import { Repository } from "typeorm";
 import AnalysisRepositoryMapper from "./AnalysisRepositoryMapper";
 import { ListAnalysisOutputDTO } from "./AnalysisRepositoryDTO";
+import Analysis from "@modules/analysis/domain/entity/Analysis";
+import AnalysisMapper from "@modules/analysis/common/AnalysisMapper";
 
 @RepositoryFactory.register(analysisSchema)
 class AnalysisRepository implements IAnalysisRepository {
@@ -13,12 +15,27 @@ class AnalysisRepository implements IAnalysisRepository {
         await this._ormRepository.insert(analysis);
     }
 
+    public async findById(id: string): Promise<Analysis | undefined> {
+        const data = await this._ormRepository.findOne({
+            where: {
+                id,
+            }
+        });
+
+        return AnalysisMapper.toDomain(data);
+    }
+
+    public async delete(id: string): Promise<void> {
+        await this._ormRepository.delete(id);
+    }
+
     public async findAllByUserId(userId: string): Promise<ListAnalysisOutputDTO[]> {
         const data = await this._ormRepository.createQueryBuilder('analysis')
             .select([
                 'analysis.id as id',
                 'analysis.userId as userId',
                 'analysis.author as author',
+                'analysis.name as name',
                 'analysis.phoma as phoma',
                 'analysis.cerscospora as cerscospora',
                 'analysis.leafRust as leafRust',
