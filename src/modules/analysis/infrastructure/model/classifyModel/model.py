@@ -1,6 +1,4 @@
 import json
-import math
-import random
 import sys
 
 result = {
@@ -13,5 +11,6 @@ result = {
 
 response = json.dumps(result) 
 
-sys.stdout.flush()
+raise IndexError()
+
 sys.stdout.write(str(response))

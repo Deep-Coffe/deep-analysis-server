@@ -1,30 +1,35 @@
-import { ClassifyImageInputDTO, ClassifyImageOutputDTO } from "@modules/analysis/domain/service/classificateImageService/ClassifyImageServiceDTO";
+import { ClassifyImageOutputDTO } from "@modules/analysis/domain/service/classificateImageService/ClassifyImageServiceDTO";
 import IClassifyModel from "./IClassifyModel";
 import { spawn } from 'child_process'
+import { serverConfig } from "@config/env/ServerConfig";
+import Logger from "@application/config/LoggerConfig";
+import BadRequestError from "@application/error/BadRequestError";
 
 class ClassifyModel implements IClassifyModel {
-    public async run(data: ClassifyImageInputDTO): Promise<ClassifyImageOutputDTO> {
+    public async run(fileName: string): Promise<ClassifyImageOutputDTO> {
         return new Promise((resolve, reject) => {
-            try {
-                const model_script = spawn('python3', ['src/modules/analysis/infrastructure/model/classifyModel/model.py']);
+            Logger.info('Running classification model');
+            const model_script = spawn('python3', [serverConfig.modelRelativePath, fileName]);
 
-                let result = ''
-                model_script.stdout.on('data', (data) => {
-                    result += data.toString(); // Convertendo a saída em uma string
-                });
+            Logger.info('Collect data from classification model...');
 
-                model_script.stdout.on('end', () => {
-                    try {
-                        const jsonResult = JSON.parse(result);
-                        resolve(jsonResult);
-                    } catch (error) {
-                        reject(error);
-                    }
-                });
+            let result = ''
+            model_script.stdout.on('data', (data) => {
+                result += data.toString();
+            });
 
-            } catch (err) {
-                reject(err)
-            }
+            model_script.stdout.on('end', () => {
+                try {
+                    const jsonResult = JSON.parse(result);
+                    Logger.info('Collect data with success');
+                    Logger.info('Classification model run with success');
+                    resolve(jsonResult);
+                } catch (error) {
+                    Logger.warn('Classification fail');
+                    Logger.error(error as Error);
+                    reject(new BadRequestError('A analise falhou, tente novamente!'));
+                }
+            });
         })
     }
 }
