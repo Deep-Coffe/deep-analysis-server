@@ -2,6 +2,7 @@ import Attachment from "@modules/attachment/domain/entity/Attachment";
 import IAttachmentProvider from "./IAttachmentProvider";
 import updateConfig from "@config/UpdateConfig";
 import fs from 'fs'
+import path from 'path'
 
 class LocalAttachmentProvider implements IAttachmentProvider {
     private readonly filenames: string[] = []
@@ -20,7 +21,11 @@ class LocalAttachmentProvider implements IAttachmentProvider {
     }
 
     public async remove(fileName: string): Promise<void> {
-        return await Promise.resolve();
+        const filePath = path.join(updateConfig.storage.directory, fileName);
+        const fileExits = await fs.promises.stat(filePath);
+        if (fileExits) {
+            await fs.promises.unlink(filePath);
+        }
     }
 }
 

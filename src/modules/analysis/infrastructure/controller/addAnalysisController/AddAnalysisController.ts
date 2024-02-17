@@ -29,6 +29,8 @@ class AddAnalysisController implements IController {
             ...classifications,
         });
 
+        this._attachmentProvider.remove(attachment.getFileName());
+
         return {
             attachment: {
                 fileName: attachment.getFileName(),
