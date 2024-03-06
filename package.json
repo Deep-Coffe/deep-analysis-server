@@ -4,6 +4,7 @@
   "description": "Server control user and organization",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/index.ts",
+    "start": "node dist/index.js",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "create:migration": "ts-node-dev ./node_modules/typeorm/cli.js migration:create",
     "install:pip": "pip3 install -r requirements.txt",
