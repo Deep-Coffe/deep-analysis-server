@@ -19,9 +19,6 @@ const analysisSchema = new EntitySchema<AnalysisSchemaType>({
         name: {
             type: 'varchar'
         },
-        userId: {
-            type: 'uuid',
-        },
         author: {
             type: String,
         },
@@ -59,14 +56,6 @@ const analysisSchema = new EntitySchema<AnalysisSchemaType>({
         }
     },
     relations: {
-        userId: {
-            cascade: true,
-            type: 'many-to-one',
-            target: 'users',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-            joinColumn: { name: "userId" }
-        },
         plagueId: {
             cascade: true,
             type: 'many-to-one',

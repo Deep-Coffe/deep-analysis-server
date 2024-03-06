@@ -7,8 +7,8 @@ import { injectable } from "tsyringe";
 class DeleteAnalysisController implements IController {
     constructor(private readonly _deleteAnalysisService: DeleteAnalysisService) { }
 
-    public async handle({ payload, user }: ControllerInput<{ id: string }>) {
-        await this._deleteAnalysisService.execute({ analysisId: payload.id, userId: user.id });
+    public async handle({ payload }: ControllerInput<{ id: string }>) {
+        await this._deleteAnalysisService.execute({ analysisId: payload.id });
 
         return {
             deleted: true,

@@ -20,7 +20,7 @@ class PlagueRoute extends RouterDomain<PlagueValidation> {
             controller: CreatePlagueController,
             path: '/',
             validationMethod: 'validateCreatePlague',
-            isAuthenticate: true,
+            isAuthenticate: false,
             responseCode: HttpResponseCode.SUCCESS
         }
     ];

@@ -38,10 +38,6 @@ class Analysis extends Entity<IAnalysis> {
         };
     }
 
-    public validateUserOwnership(id: string) {
-        return this.props.userId === id;
-    }
-
     public analyser(): DiagnosticType {
         const plagues = [];
 

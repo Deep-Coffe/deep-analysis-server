@@ -5,8 +5,8 @@ import IAnalysisRepository from "../../repository/IAnalysisRepository";
 class ListAnalysisService {
     constructor(@inject('AnalysisRepository') private readonly _analysisRepository: IAnalysisRepository) { }
 
-    public async execute(userId: string) {
-        return this._analysisRepository.findAllByUserId(userId);
+    public async execute() {
+        return this._analysisRepository.findAll();
     }
 }
 

@@ -29,11 +29,10 @@ class AnalysisRepository implements IAnalysisRepository {
         await this._ormRepository.delete(id);
     }
 
-    public async findAllByUserId(userId: string): Promise<ListAnalysisOutputDTO[]> {
+    public async findAll(): Promise<ListAnalysisOutputDTO[]> {
         const data = await this._ormRepository.createQueryBuilder('analysis')
             .select([
                 'analysis.id as id',
-                'analysis.userId as userId',
                 'analysis.author as author',
                 'analysis.name as name',
                 'analysis.phoma as phoma',
@@ -58,7 +57,6 @@ class AnalysisRepository implements IAnalysisRepository {
             .leftJoin('treatment', 'treatment', 'plague.id = treatment.plagueId')
             .leftJoin('treatment_consumable', 'treatment_consumable', 'treatment_consumable.treatmentId = treatment.id')
             .leftJoin('consumable', 'consumable', 'consumable.id = treatment_consumable.consumableId')
-            .where('analysis.userId = :userId', { userId })
             .getRawMany();
 
         return AnalysisRepositoryMapper.list(data);

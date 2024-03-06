@@ -14,14 +14,13 @@ class AddAnalysisController implements IController {
         private readonly _classifyImageService: ClassifyImageService,
         private readonly _saveAttachmentService: SaveAttachmentService) { }
 
-    public async handle({ payload, user }: ControllerInput<AddAnalysisControllerInputDTO>) {
+    public async handle({ payload }: ControllerInput<AddAnalysisControllerInputDTO>) {
         const attachment = await this._attachmentProvider.save(payload.image);
         await this._saveAttachmentService.execute(attachment);
 
         const classifications = await this._classifyImageService.execute(attachment.getFileName());
 
         const result = await this._addAnalysisService.execute({
-            userId: user.id,
             author: payload.author,
             analyzedAt: payload.analyzedAt,
             name: payload.name,

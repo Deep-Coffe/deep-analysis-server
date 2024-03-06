@@ -25,7 +25,6 @@ class AnalysisRepositoryMapper {
             } else {
                 const newAnalysis: ListAnalysisOutputDTO = {
                     id: raw.id as string,
-                    userId: raw.userid as string,
                     author: raw.author as string,
                     name: raw.name as string,
                     phoma: raw.phoma as number,

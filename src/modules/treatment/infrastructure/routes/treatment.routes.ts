@@ -12,7 +12,7 @@ class TreatmentRoute extends RouterDomain<TreatmentValidation> {
             path: '/',
             controller: CreateTreatmentController,
             validationMethod: 'createTreatment',
-            isAuthenticate: true,
+            isAuthenticate: false,
             responseCode: HttpResponseCode.SUCCESS,
         }
     ];

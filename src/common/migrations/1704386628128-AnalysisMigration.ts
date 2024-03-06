@@ -13,10 +13,6 @@ export class AnalysisMigration1704386628128 implements MigrationInterface {
                     isPrimary: true
                 },
                 {
-                    name: 'userId',
-                    type: 'uuid',
-                },
-                {
                     name: 'plagueId',
                     type: 'uuid',
                     isNullable: true,
@@ -64,14 +60,6 @@ export class AnalysisMigration1704386628128 implements MigrationInterface {
                 }
             ],
             foreignKeys: [
-                {
-                    name: "analysisUser",
-                    referencedTableName: "users",
-                    referencedColumnNames: ["id"],
-                    columnNames: ["userId"],
-                    onDelete: "CASCADE",
-                    onUpdate: "CASCADE"
-                },
                 {
                     name: "analysisPlague",
                     referencedTableName: "plague",

@@ -1,7 +1,6 @@
 export default interface IAnalysis {
     author: string;
     name: string;
-    userId: string;
     analyzedAt: Date;
     cerscospora: number;
     healthy: number;

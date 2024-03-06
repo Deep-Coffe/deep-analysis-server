@@ -18,7 +18,6 @@ export default class AnalysisMapper {
         if (!raw) return;
 
         const analysis = Analysis.createAnalysis({
-            userId: raw.userId,
             author: raw.author,
             name: raw.name,
             phoma: raw.phoma,
