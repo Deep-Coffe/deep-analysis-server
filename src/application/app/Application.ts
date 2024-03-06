@@ -35,7 +35,7 @@ class Application {
         this.app.use(compression());
         this.app.use(express.json({ limit: serverConfig.bodyLimit }));
         this.app.use(cors({
-            origin: serverConfig.client
+            origin: '*',
         }))
 
         await this.runSetups();

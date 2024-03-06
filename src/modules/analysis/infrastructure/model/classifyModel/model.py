@@ -1,5 +1,6 @@
 import json
 import sys
+import os
 
 from PIL import Image
 from torchvision import transforms
@@ -48,6 +49,17 @@ class ModeloAtualizado(nn.Module):
         x = torch.flatten(x, 1)
         x = self.classifier(x)
         return x
+import gdown
+
+# URL de compartilhamento do Google Drive para o modelo
+url = '1JSYyFBiszZVZ3nUW8T7OZikIvDJSpg7_'
+
+# Caminho local onde você deseja salvar o modelo
+output = 'src/modules/analysis/infrastructure/model/classifyModel/modelo05.pth'
+
+if not os.path.exists(output):
+    gdown.download(url, output, fuzzy=True)
+
 
 # Carregue o modelo pré-treinado
 modelo_pre_treinado_path = 'src/modules/analysis/infrastructure/model/classifyModel/modelo05.pth'
