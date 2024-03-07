@@ -7,5 +7,5 @@ key/public_key.pem
 .docker
 .env
 data
-temp
+/temp
 src/modules/analysis/infrastructure/model/classifyModel/modelo05.pth

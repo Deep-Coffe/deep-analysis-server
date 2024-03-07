@@ -12,7 +12,7 @@ class LocalAttachmentProvider implements IAttachmentProvider {
     public async save(data: string): Promise<Attachment> {
         const mimeType = '.jpg'
         const filename = updateConfig.storage.filename() + mimeType;
-        await fs.promises.writeFile(`${updateConfig.storage.directory}/${filename}`, data, 'base64');
+        await fs.promises.writeFile(`temp/${filename}`, data, 'base64');
         return Attachment.createAttachment({
             fileName: filename,
             data,
