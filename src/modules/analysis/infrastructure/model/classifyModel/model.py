@@ -59,6 +59,7 @@ output = 'src/modules/analysis/infrastructure/model/classifyModel/modelo05.pth'
 
 if not os.path.exists(output):
     gdown.cached_download(id='1JSYyFBiszZVZ3nUW8T7OZikIvDJSpg7_', path=output)
+    exit()
 
 
 # Carregue o modelo pré-treinado
