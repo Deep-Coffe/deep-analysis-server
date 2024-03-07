@@ -61,60 +61,62 @@ if not os.path.exists(output):
     gdown.cached_download(id='1JSYyFBiszZVZ3nUW8T7OZikIvDJSpg7_', path=output)
     exit()
 
+try:
+    # Carregue o modelo pré-treinado
+    modelo_pre_treinado_path = 'src/modules/analysis/infrastructure/model/classifyModel/modelo05.pth'
+    modelo_atualizado = ModeloAtualizado()
 
-# Carregue o modelo pré-treinado
-modelo_pre_treinado_path = 'src/modules/analysis/infrastructure/model/classifyModel/modelo05.pth'
-modelo_atualizado = ModeloAtualizado()
+    # Carregue o checkpoint e imprima as chaves
+    checkpoint = torch.load(modelo_pre_treinado_path, map_location=device)
 
-# Carregue o checkpoint e imprima as chaves
-checkpoint = torch.load(modelo_pre_treinado_path, map_location=device)
+    # Ajuste para encontrar a chave correta
+    modelo_atualizado.load_state_dict(checkpoint)
+    modelo_atualizado.eval()
 
-# Ajuste para encontrar a chave correta
-modelo_atualizado.load_state_dict(checkpoint)
-modelo_atualizado.eval()
+    # Função para pré-processar a imagem antes de passar para o modelo
+    def preprocess_base64_image(fileName):
+        # Decodifique a string base64 e converta para imagem
+        image = Image.open(f'temp/{fileName}')
+        # Aplicar transformações adicionais, se necessário
+        transform = transforms.Compose([
+            transforms.Resize((224, 224)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+        ])
 
-# Função para pré-processar a imagem antes de passar para o modelo
-def preprocess_base64_image(fileName):
-    # Decodifique a string base64 e converta para imagem
-    image = Image.open(f'temp/{fileName}')
-    # Aplicar transformações adicionais, se necessário
-    transform = transforms.Compose([
-        transforms.Resize((224, 224)),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
-    ])
+        # Aplicar transformações e retornar a imagem
+        image = transform(image).unsqueeze(0)
+        return image.to(device)
 
-    # Aplicar transformações e retornar a imagem
-    image = transform(image).unsqueeze(0)
-    return image.to(device)
+    file_name = sys.argv[1]
 
-file_name = sys.argv[1]
+    # Pré-processamento da imagem
+    input_image = preprocess_base64_image(file_name)
+    # Faça a predição
+    output = modelo_atualizado(input_image)
 
-# Pré-processamento da imagem
-input_image = preprocess_base64_image(file_name)
-# Faça a predição
-output = modelo_atualizado(input_image)
+    # Aplique a função softmax para obter probabilidades
+    probabilities = torch.nn.functional.softmax(output, dim=1)
+    probabilities = probabilities.cpu().detach().numpy().tolist()[0]
 
-# Aplique a função softmax para obter probabilidades
-probabilities = torch.nn.functional.softmax(output, dim=1)
-probabilities = probabilities.cpu().detach().numpy().tolist()[0]
+    # Mapeie os índices das classes para rótulos se necessário
+    class_labels = ['cerscospora', 'healthy', 'leafRust', 'miner', 'phoma']
+    predictions = [{"class": class_labels[i], "probability": round(probabilities[i] * 100, 2)} for i in range(len(class_labels))]
 
-# Mapeie os índices das classes para rótulos se necessário
-class_labels = ['cerscospora', 'healthy', 'leafRust', 'miner', 'phoma']
-predictions = [{"class": class_labels[i], "probability": round(probabilities[i] * 100, 2)} for i in range(len(class_labels))]
+    result = {
+        'miner': 0.1,
+        'phoma': 0.1,
+        'cerscospora': 0.1,
+        'leafRust': 0.1,
+        'healthy': 0.1
+    }
 
-result = {
-    'miner': 0.1,
-    'phoma': 0.1,
-    'cerscospora': 0.1,
-    'leafRust': 0.1,
-    'healthy': 0.1
-}
+    for i in range(len(class_labels)):
+        probability = round(probabilities[i] * 100, 2)
+        result[class_labels[i]] = probability
 
-for i in range(len(class_labels)):
-    probability = round(probabilities[i] * 100, 2)
-    result[class_labels[i]] = probability
+    response = json.dumps(result) 
 
-response = json.dumps(result) 
-
-sys.stdout.write(str(response))
+    sys.stdout.write(str(response))
+except Exception as err:
+    sys.stdout.write(str(err))

@@ -21,6 +21,7 @@ class ClassifyModel implements IClassifyModel {
             model_script.stdout.on('end', () => {
                 try {
                     const jsonResult = JSON.parse(result);
+                    Logger.info('Classification result: ' + result)
                     Logger.info('Collect data with success');
                     Logger.info('Classification model run with success');
                     resolve(jsonResult);
