@@ -58,7 +58,7 @@ url = '1JSYyFBiszZVZ3nUW8T7OZikIvDJSpg7_'
 output = 'src/modules/analysis/infrastructure/model/classifyModel/modelo05.pth'
 
 if not os.path.exists(output):
-    gdown.download(url, output, fuzzy=True)
+    gdown.cached_download(id='1JSYyFBiszZVZ3nUW8T7OZikIvDJSpg7_', path=output)
 
 
 # Carregue o modelo pré-treinado
