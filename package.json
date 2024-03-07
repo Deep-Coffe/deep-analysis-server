@@ -8,6 +8,7 @@
     "create:migration": "ts-node-dev ./node_modules/typeorm/cli.js migration:create",
     "install:pip": "pip install -r requirements.txt",
     "download:model": "python3 src/modules/analysis/infrastructure/model/classifyModel/model.py",
+    "create:folder:temp": "mkdir -p temp; touch temp/test.txt",
     "build": "tsc  && tsc-alias",
     "start": "node dist/index.js",
     "test": "jest"
