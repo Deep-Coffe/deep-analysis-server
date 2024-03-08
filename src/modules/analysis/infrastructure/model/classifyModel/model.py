@@ -71,15 +71,12 @@ try:
 
     # Carregue o checkpoint e imprima as chaves
     checkpoint = torch.load(modelo_pre_treinado_path, map_location=device)
-
-    print(checkpoint)
     # Ajuste para encontrar a chave correta
     modelo_atualizado.load_state_dict(checkpoint)
     modelo_atualizado.eval()
 
     # Função para pré-processar a imagem antes de passar para o modelo
     def preprocess_base64_image(fileName):
-        print(fileName)
         # Decodifique a string base64 e converta para imagem
         image = Image.open(f'temp/{fileName}')
         # Aplicar transformações adicionais, se necessário
@@ -94,15 +91,12 @@ try:
         return image.to(device)
 
     file_name = sys.argv[1]
-    print(file_name)
 
     # Pré-processamento da imagem
     input_image = preprocess_base64_image(file_name)
     # Faça a predição
-    print(input_image)
     output = modelo_atualizado(input_image)
 
-    print(output)
     # Aplique a função softmax para obter probabilidades
     probabilities = torch.nn.functional.softmax(output, dim=1)
     probabilities = probabilities.cpu().detach().numpy().tolist()[0]
