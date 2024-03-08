@@ -55,15 +55,17 @@ import gdown
 url = '1JSYyFBiszZVZ3nUW8T7OZikIvDJSpg7_'
 
 # Caminho local onde você deseja salvar o modelo
-output = 'src/modules/analysis/infrastructure/model/classifyModel/modelo05.pth'
+output = 'modelo05.pth'
 
 if not os.path.exists(output):
     gdown.cached_download(id='1JSYyFBiszZVZ3nUW8T7OZikIvDJSpg7_', path=output)
+    print('download complete')
+    print(f'data exists in {output}:\nOk:{os.path.exists(output)}')
     exit()
 
 try:
     # Carregue o modelo pré-treinado
-    modelo_pre_treinado_path = 'src/modules/analysis/infrastructure/model/classifyModel/modelo05.pth'
+    modelo_pre_treinado_path = 'modelo05.pth'
     modelo_atualizado = ModeloAtualizado()
 
     # Carregue o checkpoint e imprima as chaves
@@ -119,4 +121,4 @@ try:
 
     sys.stdout.write(str(response))
 except Exception as err:
-    sys.stdout.write(str(err))
+    sys.stdout.write(str(err.message))

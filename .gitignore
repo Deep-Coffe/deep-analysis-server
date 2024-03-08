@@ -9,3 +9,4 @@ key/public_key.pem
 data
 /temp
 src/modules/analysis/infrastructure/model/classifyModel/modelo05.pth
+modelo05.pth
