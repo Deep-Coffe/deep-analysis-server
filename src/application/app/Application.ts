@@ -56,7 +56,7 @@ class Application {
 
 
     public runServer() {
-        this.setupApplication().then(() => this.app.listen(EnvConfig.getPort(), () => {
+        this.setupApplication().then(() => this.app.listen(Number(EnvConfig.getPort()), '0.0.0.0', () => {
             Logger.info(`Server start in port ${EnvConfig.getPort()}`)
         })).catch(err => Logger.error(err))
     }
