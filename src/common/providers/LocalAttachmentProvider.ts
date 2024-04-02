@@ -21,7 +21,7 @@ class LocalAttachmentProvider implements IAttachmentProvider {
     }
 
     public async remove(fileName: string): Promise<void> {
-        const filePath = path.join(updateConfig.storage.directory, fileName);
+        const filePath = path.join('temp', fileName);
         const fileExits = await fs.promises.stat(filePath);
         if (fileExits) {
             await fs.promises.unlink(filePath);
