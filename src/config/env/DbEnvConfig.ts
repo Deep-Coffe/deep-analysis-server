@@ -9,7 +9,7 @@ export const DbEnvConfig = {
     username: process.env.DB_USER ?? "postgres",
     password: process.env.DB_PASSWORD ?? "docker",
     database: process.env.DB_DATABASE ?? "local",
-    synchronize: EnvHelper.getBoolean(process.env.SYNCHRONIZE) ?? true,
+    synchronize: EnvHelper.getBoolean(process.env.SYNCHRONIZE) ?? false,
     logging: EnvHelper.getBoolean(process.env.LOGGING) ?? false,
-    migrationRun: EnvHelper.getBoolean(process.env.RUN_MIGRATION) ?? true
+    migrationRun: EnvHelper.getBoolean(process.env.RUN_MIGRATION) ?? false
 }

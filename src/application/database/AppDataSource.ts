@@ -7,6 +7,7 @@ class AppDataSource {
     static appDataSource = new DataSource({
         ...DbEnvConfig,
         type: 'postgres',
+        ssl: true,
         entities: ['src/modules/*/infrastructure/schema/*.ts', 'src/modules/valueObject/*/schema/*.ts'],
         migrations: ['src/common/migrations/*.ts'],
     });

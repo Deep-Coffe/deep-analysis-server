@@ -13,6 +13,8 @@ import helmet from "helmet";
 import compression from "compression";
 import cors from "cors";
 import { serverConfig } from "@config/env/ServerConfig";
+import https from 'https'
+import fs from 'fs';
 
 class Application {
     private readonly app: Express;
@@ -56,7 +58,12 @@ class Application {
 
 
     public runServer() {
-        this.setupApplication().then(() => this.app.listen(Number(EnvConfig.getPort()), '0.0.0.0', () => {
+        const server = https.createServer({
+            key: fs.readFileSync('server.key'),
+            cert: fs.readFileSync('server.crt'),
+        }, this.app);
+
+        this.setupApplication().then(() => server.listen(Number(EnvConfig.getPort()), '0.0.0.0', () => {
             Logger.info(`Server start in port ${EnvConfig.getPort()}`)
         })).catch(err => Logger.error(err))
     }
