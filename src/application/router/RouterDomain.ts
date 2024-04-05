@@ -6,7 +6,6 @@ import Injection from "@application/helpers/Injection";
 import Logger from "@application/config/LoggerConfig";
 import { Types } from "@application/types/Types";
 import ValidatorMiddleware from "@application/middleware/ValidatorMiddleware";
-import AuthMiddleware from "@application/middleware/AuthMiddleware";
 
 abstract class RouterDomain<V = undefined> implements IHandleDomain<V> {
     private readonly _router: Router;
@@ -22,18 +21,14 @@ abstract class RouterDomain<V = undefined> implements IHandleDomain<V> {
     }
 
     public setup(routerMiddleware: RouterMiddleware, injection: Injection) {
-        const auth = injection.resolver(AuthMiddleware);
-
         Logger.info(`Configuring domain: ${this.prefix}`);
         this.routerConfig.forEach(router => {
             Logger.info(`Configuring path: [${router.method.toUpperCase()}] ${router.path}`);
 
             this._router[router.method](
                 router.path,
-                auth.handle(router.isAuthenticate),
                 ValidatorMiddleware.handle<V>(this.validator, router.validationMethod),
-                routerMiddleware.handle(router.controller, injection, router.responseCode, router.isStream));
-
+                routerMiddleware.handle(router.controller, injection, router.responseCode));
         });
     }
 

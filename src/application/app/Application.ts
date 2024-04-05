@@ -8,7 +8,6 @@ import ServerError from "@application/error/ServerError";
 import RouterSetup from "@application/setup/RouterSetup";
 import NotFoundError from "@application/error/NotFoundError";
 import ISetup from "@application/setup/ISetup";
-import DataBaseSetup from "@application/setup/DataBaseSetup";
 import helmet from "helmet";
 import compression from "compression";
 import cors from "cors";
@@ -21,7 +20,7 @@ class Application {
 
     constructor() {
         this.app = express();
-        this.setups = [new RouterSetup(this.app), new DataBaseSetup()]
+        this.setups = [new RouterSetup(this.app)]
     }
 
     private async runSetups() {

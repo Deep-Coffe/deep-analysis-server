@@ -9,5 +9,4 @@ export type RouterConfigType<V = undefined> = {
     isAuthenticate?: boolean,
     responseCode?: number,
     validationMethod?: keyof V,
-    isStream?: boolean
 }

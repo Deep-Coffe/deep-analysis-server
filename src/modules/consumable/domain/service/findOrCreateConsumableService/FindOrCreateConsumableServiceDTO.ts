@@ -1,1 +1,0 @@
-export type FindOrCreateConsumableServiceInputDTO = { name: string } | { id: string };

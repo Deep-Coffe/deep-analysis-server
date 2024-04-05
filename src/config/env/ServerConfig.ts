@@ -7,5 +7,5 @@ export const serverConfig = {
     client: process.env.CLIENT ?? '*',
     attachment_temp_dir: process.env.ATTACHMENT_TEMP_DIR ?? path.resolve(__dirname, "..", "..", "..", "temp"),
     bodyLimit: process.env.BODY_LIMIT ?? '20 mb',
-    modelRelativePath: process.env.MODEL_RELATIVE_PATH ?? 'src/modules/analysis/infrastructure/model/classifyModel/model.py'
+    modelRelativePath: process.env.MODEL_RELATIVE_PATH ?? 'src/modules/classify/infrastructure/model/classifyModel/model.py'
 }

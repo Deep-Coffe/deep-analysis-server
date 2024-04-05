@@ -31,7 +31,7 @@ class RouterSetup implements ISetup {
                 const routeFiles = fs.readdirSync(routesDir);
 
                 const routeModules = routeFiles
-                    .filter(file => file.endsWith('.routes.ts'))
+                    .filter(file => file.endsWith('.routes.ts') || file.endsWith('.routes.js'))
                     .map(file => require(path.join(routesDir, file)));
 
                 routeModules.forEach(routeModule => {
