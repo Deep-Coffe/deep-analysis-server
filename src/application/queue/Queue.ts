@@ -25,15 +25,15 @@ class Queue {
         return Queue.instance;
     }
 
-    async enqueue<R, T>(data: T): Promise<R> {
+    async enqueue<R, T>(req: T): Promise<R> {
         const uuid = crypto.randomUUID();
         this.queue.push({
             id: uuid,
-            data,
+            data: req,
         });
         this.event.emit('push_data');
 
-        return await new Promise<R>((resolver, reject) => {
+        const { data } = await new Promise<{ data: R }>((resolver, reject) => {
             this.event.addListener('process', ({ error, data }: { error?: Error, data: any }) => {
                 if (error) reject(error);
 
@@ -41,10 +41,16 @@ class Queue {
                     resolver(data);
             });
         });
+
+        return data
     }
 
     public addJob(fn: Fn) {
         this.event.addListener('push_data', async () => {
+            console.log(this.queue);
+            console.log(this.hasProcess);
+
+
             if (this.queue.length > 1 || this.hasProcess) return;
 
             const item = this.queue.shift();
@@ -62,7 +68,10 @@ class Queue {
         });
 
         this.event.addListener('get_next', async () => {
-            if (this.queue.length === 0) return;
+            if (this.queue.length === 0) {
+                this.hasProcess = false
+                return;
+            }
 
             const item = this.queue.shift();
             if (item) {

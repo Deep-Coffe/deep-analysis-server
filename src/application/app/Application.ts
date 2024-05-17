@@ -12,7 +12,7 @@ import helmet from "helmet";
 import compression from "compression";
 import cors from "cors";
 import { serverConfig } from "@config/env/ServerConfig";
-import https from 'https'
+import bodyParser from "body-parser";
 
 class Application {
     private readonly app: Express;
@@ -36,7 +36,8 @@ class Application {
         this.app.use(express.json({ limit: serverConfig.bodyLimit }));
         this.app.use(cors({
             origin: '*',
-        }))
+        }));
+        this.app.use(bodyParser.json({ limit: '30mb' }))
 
         await this.runSetups();
 

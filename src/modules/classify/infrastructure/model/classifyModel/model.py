@@ -77,9 +77,8 @@ try:
 
     # Função para pré-processar a imagem antes de passar para o modelo
     def preprocess_base64_image(fileName):
-        # Decodifique a string base64 e converta para imagem
         image = Image.open(f'temp/{fileName}')
-        # Aplicar transformações adicionais, se necessário
+        
         transform = transforms.Compose([
             transforms.Resize((224, 224)),
             transforms.ToTensor(),
