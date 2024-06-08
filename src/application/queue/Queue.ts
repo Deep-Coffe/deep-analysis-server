@@ -56,12 +56,15 @@ class Queue {
             const item = this.queue.shift();
             if (item) {
                 this.event.emit('hasProcessing')
-                const res = await fn(item.data);
+                try {
+                    const res = await fn(item.data);
 
-                this.event.emit('process', { data: { id: item.id, data: res } });
-                this.event.emit('get_next');
-
-                return;
+                    this.event.emit('process', { data: { id: item.id, data: res } });
+                    this.event.emit('get_next');
+                    return;
+                } catch (error) {
+                    this.event.emit('process', { error });
+                }
             }
 
             this.event.emit('process', { error: new Error('Queue failed') });
@@ -76,11 +79,15 @@ class Queue {
             const item = this.queue.shift();
             if (item) {
                 this.event.emit('hasProcessing')
-                const res = await fn(item.data);
+                try {
+                    const res = await fn(item.data);
 
-                this.event.emit('process', { data: { id: item.id, data: res } });
-                this.event.emit('get_next');
-                return;
+                    this.event.emit('process', { data: { id: item.id, data: res } });
+                    this.event.emit('get_next');
+                    return;
+                } catch (error) {
+                    this.event.emit('process', { error });
+                }
             }
 
             this.event.emit('process', { error: new Error('Queue failed') });
