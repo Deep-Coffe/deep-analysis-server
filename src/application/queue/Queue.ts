@@ -37,7 +37,7 @@ class Queue {
             this.event.addListener('process', ({ error, data }: { error?: Error, data: any }) => {
                 if (error) reject(error);
 
-                if (uuid == data.id)
+                if (uuid == data?.id)
                     resolver(data);
             });
         });
