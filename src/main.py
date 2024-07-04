@@ -28,11 +28,18 @@ router = APIRouter(
 )
 
 @router.post("/")
-async def classify(input: Input) -> dict[str, dict[str, float]]:
-    result = await classify_image(input.image)
-    return {
-        'data': result
-    }
+async def classify(input: Input) -> dict[str, dict[str, float | str]]:
+    try:
+        result = await classify_image(input.image)
+        return {
+            'data': result
+        }
+    except:
+        return {
+            'error': {
+                'message': 'Classification error'
+            }
+        }
 
 
 app.include_router(router, prefix='/api')
